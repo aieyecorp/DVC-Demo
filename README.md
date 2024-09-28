@@ -12,3 +12,27 @@
 ## To store data in remote storage, create remode connection
 ```dvc remote add -d <remote_storage_name> <location>```
 
+## To intgrate pipeline reproducibilty, we will create dvc.yaml and we will use `dvc repro` command.
+Assume in our demo we have 3 stages:
+1. In stage_01, we are doing write operation for 2 files `artifacts.txt` and `artifacts_2.txt`
+2. In stage_02, we are reading file `artifacts.txt`
+3. In stage_03, we are reading file `artifacts_2.txt`
+
+Pipeline has following direct acyclic graph:
+```
+
+            +----------+             
+            | stage_01 |             
+            +----------+             
+           ***         ***           
+          *               *          
+        **                 **        
++----------+            +----------+ 
+| stage_02 |            | stage_03 | 
++----------+            +----------+ 
++-------------------+  
+| data/data.csv.dvc |  
++-------------------+  
+
+```
+

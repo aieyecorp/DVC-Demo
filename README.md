@@ -18,6 +18,29 @@ Assume in our demo we have 3 stages:
 2. In stage_02, we are reading file `artifacts.txt`
 3. In stage_03, we are reading file `artifacts_2.txt`
 
+### dvc.yaml format for above pipeline:
+```
+stages:
+        stage_01:
+                cmd: python stage_01.py
+                deps:
+                        - stage_01.py
+                outs:
+                        - artifacts.txt
+                        - artifacts_2.txt
+
+        stage_02:
+                cmd: python stage_02.py
+                deps:
+                        - stage_02.py
+                        - artifacts.txt
+        stage_03:
+                cmd: python stage_03.py
+                deps:
+                        - stage_03.py
+                        - artifacts_2.txt
+```
+
 Pipeline has following direct acyclic graph:
 ```
 
